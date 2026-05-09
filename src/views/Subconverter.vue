@@ -179,7 +179,7 @@
                   :disabled="customSubUrl.length === 0">生成短链接
                 </el-button>
               </el-form-item>
-              <el-form-item label-width="0px" style="text-align: center">
+              <el-form-item v-if="false" label-width="0px" style="text-align: center">
                 <el-button style="width: 120px" type="primary" @click="dialogUploadConfigVisible = true"
                   icon="el-icon-upload" :loading="loading2">自定义配置
                 </el-button>
@@ -187,14 +187,14 @@
                   icon="el-icon-copy-document" :loading="loading3">从URL解析
                 </el-button>
               </el-form-item>
-              <el-form-item label-width="0px" style="text-align: center">
+              <el-form-item v-if="false" label-width="0px" style="text-align: center">
                 <el-button style="width: 250px;" type="success" icon="el-icon-video-play"
                   @click="centerDialogVisible = true">视频教程
                 </el-button>
               </el-form-item>
 
               <!-- 【修改】只在非深色模式下显示评论开关 -->
-              <el-form-item v-if="!isDarkMode" label-width="0px" style="margin-top: 10px; text-align: center;">
+              <el-form-item v-if="false" label-width="0px" style="margin-top: 10px; text-align: center;">
                 <el-switch
                   v-model="showComments"
                   active-text="显示评论区"
@@ -208,7 +208,7 @@
       </el-col>
     </el-row>
 
-    <el-row v-show="showComments" style="margin-top: 10px;">
+    <el-row v-if="false" v-show="showComments" style="margin-top: 10px;">
       <el-col>
         <el-card>
           <div slot="header">
