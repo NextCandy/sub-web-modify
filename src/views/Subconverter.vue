@@ -317,7 +317,6 @@ const scriptConfigSample = process.env.VUE_APP_SCRIPT_CONFIG
 const filterConfigSample = process.env.VUE_APP_FILTER_CONFIG
 const defaultBackend = process.env.VUE_APP_SUBCONVERTER_DEFAULT_BACKEND
 const shortUrlBackend = process.env.VUE_APP_MYURLS_DEFAULT_BACKEND
-const sinkSiteToken = process.env.VUE_APP_SINK_SITE_TOKEN
 const configUploadBackend = process.env.VUE_APP_CONFIG_UPLOAD_BACKEND + '/sub.php'
 const basicVideo = process.env.VUE_APP_BASIC_VIDEO
 const advancedVideo = process.env.VUE_APP_ADVANCED_VIDEO
@@ -1045,17 +1044,16 @@ export default {
           : this.form.shortType;
       this.loading1 = true;
       const shortKey = this.customShortSubUrl.trim().indexOf("http") < 0 ? this.customShortSubUrl.trim() : "";
-      const isSink = duan.indexOf("ue.lc") !== -1;
+      const isUeLc = duan.indexOf("ue.lc") !== -1;
       let data = new FormData();
       data.append("longUrl", btoa(this.customSubUrl));
       if (this.customShortSubUrl.trim() != "") {
         data.append("shortKey", shortKey);
       }
-      const request = isSink
+      const request = isUeLc
         ? this.$axios.post(
-          duan.replace(/\/$/, "") + "/api/link/create",
-          { url: this.customSubUrl, ...(shortKey ? { slug: shortKey } : {}) },
-          { headers: { Authorization: "Bearer " + sinkSiteToken } }
+          "/api/short-link",
+          { link: this.customSubUrl, ...(shortKey ? { slug: shortKey } : {}) }
         )
         : this.$axios.post(duan, data, {
           headers: {
@@ -1064,8 +1062,8 @@ export default {
         });
       request
         .then(res => {
-          const shortUrl = isSink ? res.data.shortLink : res.data.ShortUrl;
-          const success = isSink ? !!shortUrl : res.data.Code === 1 && shortUrl !== "";
+          const shortUrl = isUeLc ? res.data.shortUrl : res.data.ShortUrl;
+          const success = isUeLc ? !!shortUrl : res.data.Code === 1 && shortUrl !== "";
           if (success) {
             this.customShortSubUrl = shortUrl;
             this.$copyText(shortUrl);
