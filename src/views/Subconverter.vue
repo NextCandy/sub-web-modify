@@ -1052,7 +1052,7 @@ export default {
       }
       const request = isUeLc
         ? this.$axios.post(
-          "/api/short-link",
+          duan.replace(/\/$/, "") + "/api/set-link",
           { link: this.customSubUrl, ...(shortKey ? { slug: shortKey } : {}) }
         )
         : this.$axios.post(duan, data, {
