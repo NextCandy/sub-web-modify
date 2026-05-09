@@ -179,7 +179,7 @@
                   :disabled="customSubUrl.length === 0">生成短链接
                 </el-button>
               </el-form-item>
-              <el-form-item v-if="false" label-width="0px" style="text-align: center">
+              <el-form-item label-width="0px" style="text-align: center">
                 <el-button style="width: 120px" type="primary" @click="dialogUploadConfigVisible = true"
                   icon="el-icon-upload" :loading="loading2">自定义配置
                 </el-button>
