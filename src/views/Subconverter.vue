@@ -340,8 +340,8 @@ export default {
       options: {
         clientTypes: { Clash: "clash", "Surge4/5": "surge&ver=4", "Sing-Box": "singbox", V2Ray: "v2ray", Trojan: "trojan", ShadowsocksR: "ssr", "混合订阅（mixed）": "mixed", Surfboard: "surfboard", Quantumult: "quan", "Quantumult X": "quanx", Loon: "loon", Mellow: "mellow", Surge3: "surge&ver=3", Surge2: "surge&ver=2", ClashR: "clashr", "Shadowsocks(SIP002)": "ss", "Shadowsocks Android(SIP008)": "sssub", ShadowsocksD: "ssd", "自动判断客户端": "auto" },
         shortTypes: { "v1.mk": "https://v1.mk/short", "d1.mk": "https://d1.mk/short", "dlj.tf": "https://dlj.tf/short", "suo.yt": "https://suo.yt/short" },
-        customBackend: { "周润发HK后端【由YXVM赞助服务】": "https://subapi.zrfme.com", "周润发US后端【Phala Cloud】": "https://1060e98895bedf43d3d738e3b7fc9120a0cbbbcf-15051.dstack-prod8.phala.network", "CM负载均衡后端【vless reality+hy1+hy2】": "https://subapi.cmliussss.net", "CM应急备用后端【vless reality+hy1+hy2】": "https://subapi.fxxk.dedyn.io", "肥羊增强型后端【vless reality+hy1+hy2】": "https://url.v1.mk", "肥羊备用后端【vless reality+hy1+hy2】": "https://sub.d1.mk", nameless13提供: "https://www.nameless13.com", subconverter作者提供: "https://sub.xeton.dev", "sub-web作者提供": "https://api.wcc.best", "920后端": "https://sub.xjz.im", "Sublink后端（歪兔）": "https://api.sublink.dev", "SoCloud 提供": "https://api.subcsub.com" },
-        backendOptions: [ { value: "https://subapi.zrfme.com" }, { value: "https://1060e98895bedf43d3d738e3b7fc9120a0cbbbcf-15051.dstack-prod8.phala.network" }, { value: "https://subapi.cmliussss.net" }, { value: "https://subapi.fxxk.dedyn.io" }, { value: "https://url.v1.mk" }, { value: "https://sub.d1.mk" }, { value: "https://www.nameless13.com" }, { value: "https://sub.xeton.dev" }, { value: "https://api.wcc.best" }, { value: "https://sub.xjz.im" }, { value: "https://api.sublink.dev" }, { value: "https://api.subcsub.com" } ],
+        customBackend: { "订阅转换后端": "https://sub.synccat.com", "周润发HK后端【由YXVM赞助服务】": "https://subapi.zrfme.com", "周润发US后端【Phala Cloud】": "https://1060e98895bedf43d3d738e3b7fc9120a0cbbbcf-15051.dstack-prod8.phala.network", "CM负载均衡后端【vless reality+hy1+hy2】": "https://subapi.cmliussss.net", "CM应急备用后端【vless reality+hy1+hy2】": "https://subapi.fxxk.dedyn.io", "肥羊增强型后端【vless reality+hy1+hy2】": "https://url.v1.mk", "肥羊备用后端【vless reality+hy1+hy2】": "https://sub.d1.mk", nameless13提供: "https://www.nameless13.com", subconverter作者提供: "https://sub.xeton.dev", "sub-web作者提供": "https://api.wcc.best", "920后端": "https://sub.xjz.im", "Sublink后端（歪兔）": "https://api.sublink.dev", "SoCloud 提供": "https://api.subcsub.com" },
+        backendOptions: [ { value: "https://sub.synccat.com" }, { value: "https://subapi.zrfme.com" }, { value: "https://1060e98895bedf43d3d738e3b7fc9120a0cbbbcf-15051.dstack-prod8.phala.network" }, { value: "https://subapi.cmliussss.net" }, { value: "https://subapi.fxxk.dedyn.io" }, { value: "https://url.v1.mk" }, { value: "https://sub.d1.mk" }, { value: "https://www.nameless13.com" }, { value: "https://sub.xeton.dev" }, { value: "https://api.wcc.best" }, { value: "https://sub.xjz.im" }, { value: "https://api.sublink.dev" }, { value: "https://api.subcsub.com" } ],
         remoteConfig: [
           {
             label: "CM规则",
@@ -778,7 +778,7 @@ export default {
           }
         ]
       },
-      form: { sourceSubUrl: "", clientType: "", customBackend: this.getUrlParam() == "" ? "https://subapi.zrfme.com" : this.getUrlParam(), shortType: "https://v1.mk/short", remoteConfig: "https://raw.githubusercontent.com/cmliu/ACL4SSR/refs/heads/main/Clash/config/ACL4SSR_Online_Mini_MultiMode_CF.ini", excludeRemarks: "", includeRemarks: "", filename: "", rename: "", devid: "", interval: "", emoji: true, nodeList: false, extraset: false, tls13: false, udp: false, xudp: false, tfo: false, sort: false, expand: true, scv: false, fdn: false, appendType: false, insert: false, new_name: true, tpl: { surge: { doh: false }, clash: { doh: false }, singbox: { ipv6: false } } },
+      form: { sourceSubUrl: "", clientType: "", customBackend: this.getUrlParam() == "" ? defaultBackend : this.getUrlParam(), shortType: "https://v1.mk/short", remoteConfig: "https://raw.githubusercontent.com/cmliu/ACL4SSR/refs/heads/main/Clash/config/ACL4SSR_Online_Mini_MultiMode_CF.ini", excludeRemarks: "", includeRemarks: "", filename: "", rename: "", devid: "", interval: "", emoji: true, nodeList: false, extraset: false, tls13: false, udp: false, xudp: false, tfo: false, sort: false, expand: true, scv: false, fdn: false, appendType: false, insert: false, new_name: true, tpl: { surge: { doh: false }, clash: { doh: false }, singbox: { ipv6: false } } },
       loading1: false,
       loading2: false,
       loading3: false,
@@ -819,7 +819,7 @@ export default {
   },
 
   created() {
-    document.title = "ZRF.ME | 在线订阅转换工具";
+    document.title = "订阅转换";
     this.isPC = this.$getOS().isPc;
   },
   mounted() {
