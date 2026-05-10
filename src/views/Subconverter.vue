@@ -1052,8 +1052,8 @@ export default {
       }
       const request = isUeLc
         ? this.$axios.post(
-          duan.replace(/\/$/, "") + "/api/set-link",
-          { link: this.customSubUrl, ...(shortKey ? { slug: shortKey } : {}) }
+          "/api/short-link",
+          { url: this.customSubUrl, ...(shortKey ? { slug: shortKey } : {}) }
         )
         : this.$axios.post(duan, data, {
           headers: {
@@ -1062,17 +1062,27 @@ export default {
         });
       request
         .then(res => {
-          const shortUrl = isUeLc ? res.data.shortUrl : res.data.ShortUrl;
-          const success = isUeLc ? !!shortUrl : res.data.Code === 1 && shortUrl !== "";
+          let shortUrl = "";
+          let success = false;
+          if (isUeLc) {
+            success = !!res.data.shortUrl;
+            if (success) {
+              shortUrl = res.data.shortUrl;
+            }
+          } else {
+            shortUrl = res.data.ShortUrl;
+            success = res.data.Code === 1 && shortUrl !== "";
+          }
           if (success) {
             this.customShortSubUrl = shortUrl;
             this.$copyText(shortUrl);
             this.$message.success("短链接已复制到剪贴板（IOS设备和Safari浏览器不支持自动复制API，需手动点击复制按钮）");
           } else {
-            this.$message.error("短链接获取失败：" + res.data.Message);
+            this.$message.error("短链接获取失败：" + (isUeLc ? (res.data.error || "未知错误") : res.data.Message));
           }
         })
-        .catch(() => {
+        .catch((e) => {
+          console.error(e);
           this.$message.error("短链接获取失败");
         })
         .finally(() => {

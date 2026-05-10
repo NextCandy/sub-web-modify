@@ -1,4 +1,5 @@
 const SHORT_LINK_ORIGIN = "https://ue.lc";
+const SINK_TOKEN = "Wang8278Tasv";
 
 export async function onRequestPost(context) {
   let payload;
@@ -9,18 +10,21 @@ export async function onRequestPost(context) {
     return json({ error: "请求格式错误" }, 400);
   }
 
-  const link = typeof payload.link === "string" ? payload.link.trim() : "";
+  const url = typeof payload.url === "string" ? payload.url.trim() : "";
   const slug = typeof payload.slug === "string" ? payload.slug.trim() : "";
 
-  if (!link) {
+  if (!url) {
     return json({ error: "请输入长链接" }, 400);
   }
 
-  const upstream = await fetch(`${SHORT_LINK_ORIGIN}/api/set-link`, {
+  const upstream = await fetch(`${SHORT_LINK_ORIGIN}/api/link/create`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${SINK_TOKEN}`
+    },
     body: JSON.stringify({
-      link,
+      url,
       ...(slug ? { slug } : {})
     })
   });
@@ -31,10 +35,10 @@ export async function onRequestPost(context) {
     return json(data, upstream.status);
   }
 
-  const id = data.id || data.existingId;
+  const generatedSlug = data.link ? data.link.slug : "";
   return json({
     ...data,
-    shortUrl: id ? `${SHORT_LINK_ORIGIN}/${id}` : ""
+    shortUrl: generatedSlug ? `${SHORT_LINK_ORIGIN}/${generatedSlug}` : ""
   });
 }
 
